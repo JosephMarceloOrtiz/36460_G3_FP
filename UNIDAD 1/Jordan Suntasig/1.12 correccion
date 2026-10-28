@@ -1,1 +1,23 @@
+#include <stdio.h>
 
+int main() {
+    int n, suma=0, digito;
+
+    printf("Ingrese un numero entero: ");
+    scanf("%d", &n);
+
+    if (n > 0){
+        while (n > 0) {
+        digito = n % 10;
+         if (digito % 2 == 0) {
+                suma = suma + digito; // Solo suma si el dígito es par
+            }
+            n = n / 10;
+            }
+        printf("La suma de los digitos es: %d\n", suma);
+    } else {
+        printf("numero invalido: no positivo");
+        }
+
+    return 0;
+}
