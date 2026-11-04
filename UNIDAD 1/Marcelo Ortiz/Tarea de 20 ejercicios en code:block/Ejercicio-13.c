@@ -1,3 +1,6 @@
+//Realizado por Marcelo Ortiz 
+//Problema 1.13. Número capicúa
+// Desarrolla un programa que lea un entero positivo y determine si es capicúa, es decir, si se lee igual de izquierda a derecha que de derecha a izquierda.
 #include <stdio.h>
 
 int main() {
