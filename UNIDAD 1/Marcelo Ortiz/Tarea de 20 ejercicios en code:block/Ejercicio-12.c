@@ -1,3 +1,6 @@
+//Realizado por Marcelo Ortiz 
+//Problema 1.12. Suma de dígitos
+//Desarrolla un programa que lea un entero positivo y calcule la suma de sus dígitos.
 #include <stdio.h>
 
 int main() {
