@@ -1,3 +1,7 @@
+//Realizado por Marcelo Ortiz 
+//Problema 1.1. Media de dos valores
+//Desarrolla un programa que ingrese dos números por teclado e imprima su media.
+
 #include <stdio.h>
 
 int main() {
