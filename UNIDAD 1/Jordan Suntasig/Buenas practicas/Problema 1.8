@@ -1,0 +1,37 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.8 .- Numero primo
+ * Programa que determina si un numero entero mayor que 1 es primo
+ */
+
+#include <stdio.h>
+
+int main() {
+    int n = 0;
+    int esPrimo = 1; // 1 = Verdadero (es primo), 0 = Falso
+
+    // Entrada de datos
+    printf("Ingrese un numero entero mayor que 1: ");
+    if (scanf("%d", &n) != 1 || n <= 1) {
+        printf("Error: Ingrese un numero valido mayor que 1.\n");
+        return 1;
+    }
+
+    // Procesamiento: verificamos divisores hasta la raiz cuadrada de n
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            esPrimo = 0; // Encontro un divisor, no es primo
+            break;
+        }
+    }
+
+    // Salida
+    if (esPrimo) {
+        printf("El numero %d SI es primo.\n", n);
+    } else {
+        printf("El numero %d NO es primo.\n", n);
+    }
+
+    return 0;
+}
