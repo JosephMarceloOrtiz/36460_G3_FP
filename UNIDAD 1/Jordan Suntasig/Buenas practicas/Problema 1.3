@@ -1,0 +1,30 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.3 .- Divisible
+ * Desarrolla un programa que lea dos numeros enteros por teclado y determine si el primero es divisible por el segundo
+ */
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+
+    // Entrada de datos
+    printf("Ingrese el primer numero entero: ");
+    scanf("%d", &num1);
+    
+    printf("Ingrese el segundo numero entero: ");
+    scanf("%d", &num2);
+
+    // Procesamiento y salida
+    if (num2 == 0) {
+        printf("Error: No se puede dividir entre cero.\n");
+    } else if (num1 % num2 == 0) {
+        printf("El numero %d si es divisible por %d.\n", num1, num2);
+    } else {
+        printf("El numero %d no es divisible por %d.\n", num1, num2);
+    }
+
+    return 0;
+}
