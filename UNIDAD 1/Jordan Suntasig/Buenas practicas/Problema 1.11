@@ -1,0 +1,43 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.11 .- Serie de Fibonacci
+ * Programa que muestra los primeros n terminos de la serie de Fibonacci
+ */
+
+#include <stdio.h>
+
+int main() {
+    int n = 0;
+    long long t1 = 0, t2 = 1, siguiente = 0;
+
+    // Entrada de datos
+    printf("Ingrese un numero entero n >= 1: ");
+    if (scanf("%d", &n) != 1 || n < 1) {
+        printf("Error: Ingrese un numero entero mayor o igual a 1.\n");
+        return 1;
+    }
+
+    printf("Serie de Fibonacci (%d terminos):\n", n);
+
+    // Procesamiento y salida
+    for (int i = 1; i <= n; i++) {
+        if (i == 1) {
+            printf("%lld ", t1);
+            continue;
+        }
+        if (i == 2) {
+            printf("%lld ", t2);
+            continue;
+        }
+        
+        siguiente = t1 + t2;
+        t1 = t2;
+        t2 = siguiente;
+        
+        printf("%lld ", siguiente);
+    }
+    printf("\n");
+
+    return 0;
+}
