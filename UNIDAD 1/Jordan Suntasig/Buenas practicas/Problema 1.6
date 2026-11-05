@@ -1,0 +1,50 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.6 .- Maximo, minimo y media de alturas
+ * Programa que calcula la media, maximo y minimo de alturas hasta ingresar una negativa
+ */
+
+#include <stdio.h>
+
+int main() {
+    float altura, suma = 0, max = 0, min = 0;
+    int contador = 0;
+
+    printf("Ingrese una altura (negativa para terminar): ");
+    scanf("%f", &altura);
+
+    if (altura >= 0) {
+        max = altura;
+        min = altura;
+        suma = altura;
+        contador = 1;
+
+        while (1) {
+            printf("Ingrese otra altura (negativa para terminar): ");
+            scanf("%f", &altura);
+
+            if (altura < 0) {
+                break;
+            }
+
+            suma += altura;
+            contador++;
+
+            if (altura > max) {
+                max = altura;
+            }
+            if (altura < min) {
+                min = altura;
+            }
+        }
+
+        printf("Media: %.2f\n", suma / contador);
+        printf("Maximo: %.2f\n", max);
+        printf("Minimo: %.2f\n", min);
+    } else {
+        printf("No se ingresaron alturas validas.\n");
+    }
+
+    return 0;
+}
