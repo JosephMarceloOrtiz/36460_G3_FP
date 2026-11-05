@@ -1,0 +1,30 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.7 .- Raiz cuadrada entera
+ * Programa que calcula la raiz cuadrada entera por defecto de un numero N
+ */
+
+#include <stdio.h>
+
+int main() {
+    int n = 0;
+    int i = 1;
+
+    // Entrada de datos
+    printf("Ingrese un numero entero positivo: ");
+    if (scanf("%d", &n) != 1 || n < 0) {
+        printf("Error: Ingrese un numero valido.\n");
+        return 1;
+    }
+
+    // Procesamiento: incrementa i mientras su cuadrado sea menor o igual a N
+    while ((i * i) <= n) {
+        i++;
+    }
+
+    // Salida: la raiz cuadrada por defecto es el valor anterior de i
+    printf("La raiz cuadrada entera es: %d\n", i - 1);
+
+    return 0;
+}
