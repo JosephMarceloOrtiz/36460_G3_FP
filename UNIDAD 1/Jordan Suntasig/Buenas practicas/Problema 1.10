@@ -1,0 +1,30 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.10 .- Factorial
+ * Programa que calcula el factorial de un numero entero n >= 0
+ */
+
+#include <stdio.h>
+
+int main() {
+    int n = 0;
+    unsigned long long factorial = 1; // Usamos este tipo para evitar desbordamiento en números grandes
+
+    // Entrada de datos
+    printf("Ingrese un numero entero (n >= 0): ");
+    if (scanf("%d", &n) != 1 || n < 0) {
+        printf("Error: Debe ingresar un numero entero no negativo.\n");
+        return 1;
+    }
+
+    // Procesamiento: cálculo del factorial con un ciclo for
+    for (int i = 1; i <= n; i++) {
+        factorial *= i;
+    }
+
+    // Salida
+    printf("El factorial de %d es: %llu\n", n, factorial);
+
+    return 0;
+}
