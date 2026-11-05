@@ -1,0 +1,25 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.4 .- Intervalo
+ * Programa que determina si un numero pertenece al intervalo [0, 10]
+ */
+
+#include <stdio.h>
+
+int main() {
+    float x;
+
+    // Entrada de datos
+    printf("Ingrese un numero: ");
+    scanf("%f", &x);
+
+    // Procesamiento y salida
+    if (x >= 0 && x <= 10) {
+        printf("El numero %.2f esta en el intervalo [0, 10].\n", x);
+    } else {
+        printf("El numero %.2f no esta en el intervalo [0, 10].\n", x);
+    }
+
+    return 0;
+}
