@@ -1,0 +1,25 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.2 .- Valor absoluto de x al cubo
+ * Desarrolla un programa que lea un numero por teclado y escriba por pantalla |x|^3
+ */
+
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float x, resultado;
+
+    // Entrada de datos
+    printf("Ingrese un numero: ");
+    scanf("%f", &x);
+
+    // Procesamiento: |x|^3
+    resultado = pow(fabs(x), 3);
+
+    // Salida
+    printf("El resultado es: %.2f\n", resultado);
+
+    return 0;
+}
