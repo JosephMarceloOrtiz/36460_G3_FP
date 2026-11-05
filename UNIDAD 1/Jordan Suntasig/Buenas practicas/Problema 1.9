@@ -1,0 +1,57 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.9 .- Numeros primos entre dos numeros dados
+ * Programa que muestra los numeros primos comprendidos en un rango
+ */
+
+#include <stdio.h>
+
+int main() {
+    int inicio = 0;
+    int fin = 0;
+
+    // Entrada de datos
+    printf("Ingrese el primer numero entero: ");
+    if (scanf("%d", &inicio) != 1) {
+        printf("Error en la entrada.\n");
+        return 1;
+    }
+
+    printf("Ingrese el segundo numero entero: ");
+    if (scanf("%d", &fin) != 1) {
+        printf("Error en la entrada.\n");
+        return 1;
+    }
+
+    // Asegurar que el rango vaya del menor al mayor
+    if (inicio > fin) {
+        int temp = inicio;
+        inicio = fin;
+        fin = temp;
+    }
+
+    printf("Numeros primos entre %d y %d:\n", inicio, fin);
+
+    // Procesamiento: recorrer el rango buscando primos
+    for (int n = inicio; n <= fin; n++) {
+        if (n <= 1) {
+            continue; // Los números menores o iguales a 1 no son primos
+        }
+
+        int esPrimo = 1;
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                esPrimo = 0;
+                break;
+            }
+        }
+
+        if (esPrimo) {
+            printf("%d ", n);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
