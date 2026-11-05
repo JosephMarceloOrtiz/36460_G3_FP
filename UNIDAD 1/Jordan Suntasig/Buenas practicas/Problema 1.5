@@ -1,0 +1,31 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.5 .- Conversion de unidades de tiempo
+ * Programa que convierte segundos en dias, horas, minutos y segundos
+ */
+
+#include <stdio.h>
+
+int main() {
+    int c, dias, horas, minutos, segundos;
+
+    // Entrada de datos
+    printf("Ingrese el numero de segundos: ");
+    scanf("%d", &c);
+
+    // Procesamiento
+    dias = c / (24 * 3600);
+    int resto = c % (24 * 3600);
+
+    horas = resto / 3600;
+    resto %= 3600;
+
+    minutos = resto / 60;
+    segundos = resto % 60;
+
+    // Salida
+    printf("Dias: %d, Horas: %d, Minutos: %d, Segundos: %d\n", dias, horas, minutos, segundos);
+
+    return 0;
+}
