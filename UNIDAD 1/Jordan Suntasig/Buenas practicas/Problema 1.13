@@ -1,0 +1,39 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.13 .- Numero capicua
+ * Programa que determina si un entero positivo es capicua
+ */
+
+#include <stdio.h>
+
+int main() {
+    int numero = 0;
+    int invertido = 0;
+    int temporal = 0;
+
+    // Entrada de datos
+    printf("Ingrese un numero entero positivo: ");
+    if (scanf("%d", &numero) != 1 || numero < 0) {
+        printf("Error: Ingrese un numero entero positivo valido.\n");
+        return 1;
+    }
+
+    temporal = numero;
+
+    // Procesamiento: construir el número invertido
+    while (temporal > 0) {
+        int digito = temporal % 10;
+        invertido = invertido * 10 + digito;
+        temporal /= 10;
+    }
+
+    // Salida comparando el original con el invertido
+    if (numero == invertido) {
+        printf("El numero %d SI es capicua.\n", numero);
+    } else {
+        printf("El numero %d NO es capicua.\n", numero);
+    }
+
+    return 0;
+}
