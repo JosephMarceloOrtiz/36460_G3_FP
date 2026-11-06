@@ -1,0 +1,40 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.14 .- Maximo comun divisor (Euclides)
+ * Programa que calcula el MCD de dos enteros positivos usando el algoritmo de Euclides
+ */
+
+#include <stdio.h>
+
+int main() {
+    int a = 0, b = 0, temp = 0;
+
+    // Entrada de datos
+    printf("Ingrese el primer entero positivo (a): ");
+    if (scanf("%d", &a) != 1 || a < 0) {
+        printf("Error: Ingrese un numero valido.\n");
+        return 1;
+    }
+
+    printf("Ingrese el segundo entero positivo (b): ");
+    if (scanf("%d", &b) != 1 || b < 0) {
+        printf("Error: Ingrese un numero valido.\n");
+        return 1;
+    }
+
+    int originalA = a;
+    int originalB = b;
+
+    // Procesamiento: Algoritmo de Euclides
+    while (b != 0) {
+        temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    // Salida
+    printf("El maximo comun divisor (MCD) de %d y %d es: %d\n", originalA, originalB, a);
+
+    return 0;
+}
