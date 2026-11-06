@@ -1,0 +1,29 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.15 .- Ano bisiesto
+ * Programa que determina si un ano ingresado es bisiesto
+ */
+
+#include <stdio.h>
+
+int main() {
+    int anio = 0;
+
+    // Entrada de datos
+    printf("Ingrese un ano: ");
+    if (scanf("%d", &anio) != 1 || anio < 0) {
+        printf("Error: Ingrese un ano valido.\n");
+        return 1;
+    }
+
+    // Procesamiento: Un año es bisiesto si es divisible por 4, 
+    // excepto si es divisible por 100, a menos que también sea divisible por 400.
+    if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
+        printf("El ano %d SI es bisiesto.\n", anio);
+    } else {
+        printf("El ano %d NO es bisiesto.\n", anio);
+    }
+
+    return 0;
+}
