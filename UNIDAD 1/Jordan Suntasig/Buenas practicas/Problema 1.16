@@ -1,0 +1,45 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.16 .- Minimo comun multiplo (MCM)
+ * Programa que calcula el MCM de dos enteros positivos
+ */
+
+#include <stdio.h>
+
+int main() {
+    int a = 0, b = 0;
+    int temp = 0;
+
+    // Entrada de datos
+    printf("Ingrese el primer entero positivo (a): ");
+    if (scanf("%d", &a) != 1 || a <= 0) {
+        printf("Error: Ingrese un numero entero positivo valido.\n");
+        return 1;
+    }
+
+    printf("Ingrese el segundo entero positivo (b): ");
+    if (scanf("%d", &b) != 1 || b <= 0) {
+        printf("Error: Ingrese un numero entero positivo valido.\n");
+        return 1;
+    }
+
+    int originalA = a;
+    int originalB = b;
+
+    // Procesamiento: Calcular MCD usando el algoritmo de Euclides
+    while (b != 0) {
+        temp = b;
+        b = a % b;
+        a = temp;
+    }
+    int mcd = a;
+
+    // El MCM se calcula como: (A * B) / MCD
+    int mcm = (originalA * originalB) / mcd;
+
+    // Salida
+    printf("El minimo comun multiplo (MCM) de %d y %d es: %d\n", originalA, originalB, mcm);
+
+    return 0;
+}
