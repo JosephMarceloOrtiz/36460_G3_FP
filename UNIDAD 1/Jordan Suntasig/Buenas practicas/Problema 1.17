@@ -1,0 +1,31 @@
+/*
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * 1.17 .- Divisores de un numero
+ * Programa que muestra todos los divisores de un numero entero positivo
+ */
+
+#include <stdio.h>
+
+int main() {
+    int n = 0;
+
+    // Entrada de datos
+    printf("Ingrese un numero entero positivo: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("Error: Ingrese un numero entero positivo valido.\n");
+        return 1;
+    }
+
+    printf("Divisores de %d: ", n);
+
+    // Procesamiento y salida: buscar y mostrar los números que dividen exactamente a n
+    for (int i = 1; i <= n; i++) {
+        if (n % i == 0) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
