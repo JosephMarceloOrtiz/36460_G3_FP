@@ -1,0 +1,263 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
+#include <conio.h>
+#include <windows.h>
+
+#define ANCHO 10
+#define ALTO 20
+
+// Tipos de piezas (Tetrominós)
+const int PIEZAS[7][4][4] = {
+    // I
+    {{0,0,0,0}, {1,1,1,1}, {0,0,0,0}, {0,0,0,0}},
+    // J
+    {{1,0,0,0}, {1,1,1,0}, {0,0,0,0}, {0,0,0,0}},
+    // L
+    {{0,0,1,0}, {1,1,1,0}, {0,0,0,0}, {0,0,0,0}},
+    // O
+    {{0,1,1,0}, {0,1,1,0}, {0,0,0,0}, {0,0,0,0}},
+    // S
+    {{0,1,1,0}, {1,1,0,0}, {0,0,0,0}, {0,0,0,0}},
+    // T
+    {{0,1,0,0}, {1,1,1,0}, {0,0,0,0}, {0,0,0,0}},
+    // Z
+    {{1,1,0,0}, {0,1,1,0}, {0,0,0,0}, {0,0,0,0}}
+};
+
+// Colores de las piezas (Windows Console Colors)
+const int COLORES[7] = {11, 9, 6, 14, 10, 13, 12};
+
+// Variables del juego
+int tablero[ALTO][ANCHO] = {0};
+int piezaActual[4][4];
+int colorActual;
+int posX, posY;
+int puntuacion = 0;
+int lineas = 0;
+bool gameOver = false;
+
+// Funciones de consola (Windows)
+void ocultarCursor() {
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO info;
+    info.dwSize = 100;
+    info.bVisible = FALSE;
+    SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+void moverCursor(int x, int y) {
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void setColor(int color) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+// Genera una nueva pieza aleatoria
+void nuevaPieza() {
+    int id = rand() % 7;
+    colorActual = COLORES[id];
+    posX = ANCHO / 2 - 2;
+    posY = 0;
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            piezaActual[i][j] = PIEZAS[id][i][j];
+        }
+    }
+}
+
+// Comprueba si hay colisión
+bool hayColision(int px, int py, int pieza[4][4]) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (pieza[i][j]) {
+                int nx = px + j;
+                int ny = py + i;
+
+                if (nx < 0 || nx >= ANCHO || ny >= ALTO) return true;
+                if (ny >= 0 && tablero[ny][nx]) return true;
+            }
+        }
+    }
+    return false;
+}
+
+// Rotación de matriz 4x4 a la derecha
+void rotarPieza() {
+    int temp[4][4];
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            temp[j][3 - i] = piezaActual[i][j];
+        }
+    }
+    if (!hayColision(posX, posY, temp)) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                piezaActual[i][j] = temp[i][j];
+            }
+        }
+    }
+}
+
+// Fija la pieza en el tablero
+void fijarPieza() {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (piezaActual[i][j]) {
+                if (posY + i < 0) {
+                    gameOver = true;
+                    return;
+                }
+                tablero[posY + i][posX + j] = colorActual;
+            }
+        }
+    }
+}
+
+// Limpia las líneas completas
+void limpiarLineas() {
+    int lineasLimpiadas = 0;
+    for (int i = ALTO - 1; i >= 0; i--) {
+        bool llena = true;
+        for (int j = 0; j < ANCHO; j++) {
+            if (tablero[i][j] == 0) {
+                llena = false;
+                break;
+            }
+        }
+
+        if (llena) {
+            lineasLimpiadas++;
+            for (int k = i; k > 0; k--) {
+                for (int j = 0; j < ANCHO; j++) {
+                    tablero[k][j] = tablero[k - 1][j];
+                }
+            }
+            for (int j = 0; j < ANCHO; j++) {
+                tablero[0][j] = 0;
+            }
+            i++; // Recomprobar la misma fila
+        }
+    }
+
+    if (lineasLimpiadas > 0) {
+        lineas += lineasLimpiadas;
+        puntuacion += lineasLimpiadas * lineasLimpiadas * 100;
+    }
+}
+
+// Dibuja el estado del juego en pantalla
+void dibujar() {
+    moverCursor(0, 0);
+
+    // Borde superior
+    setColor(7);
+    printf("+");
+    for (int i = 0; i < ANCHO * 2; i++) printf("-");
+    printf("+\n");
+
+    // Tablero y pieza activa
+    for (int i = 0; i < ALTO; i++) {
+        setColor(7);
+        printf("|");
+        for (int j = 0; j < ANCHO; j++) {
+            bool esPiezaActual = false;
+
+            // Verificar si el bloque pertenece a la pieza cayendo
+            if (i >= posY && i < posY + 4 && j >= posX && j < posX + 4) {
+                if (piezaActual[i - posY][j - posX]) {
+                    setColor(colorActual);
+                    printf("[]");
+                    esPiezaActual = true;
+                }
+            }
+
+            if (!esPiezaActual) {
+                if (tablero[i][j] != 0) {
+                    setColor(tablero[i][j]);
+                    printf("[]");
+                } else {
+                    printf("  ");
+                }
+            }
+        }
+        setColor(7);
+        printf("|\n");
+    }
+
+    // Borde inferior
+    printf("+");
+    for (int i = 0; i < ANCHO * 2; i++) printf("-");
+    printf("+\n");
+
+    // HUD
+    printf("\n Puntos : %d\n", puntuacion);
+    printf(" Lineas : %d\n\n", lineas);
+    printf(" [A/D] Mover | [W] Rotar | [S] Bajar | [Espacio] Caida Rapida | [Q] Salir\n");
+}
+
+int main() {
+    srand((unsigned int)time(NULL));
+    ocultarCursor();
+    nuevaPieza();
+
+    DWORD ultimoPaso = GetTickCount();
+    int velocidad = 400; // Milisegundos por caída
+
+    while (!gameOver) {
+        // Entrada de usuario
+        if (_kbhit()) {
+            char tecla = _getch();
+            if (tecla == 'a' || tecla == 'A') {
+                if (!hayColision(posX - 1, posY, piezaActual)) posX--;
+            } else if (tecla == 'd' || tecla == 'D') {
+                if (!hayColision(posX + 1, posY, piezaActual)) posX++;
+            } else if (tecla == 's' || tecla == 'S') {
+                if (!hayColision(posX, posY + 1, piezaActual)) posY++;
+            } else if (tecla == 'w' || tecla == 'W') {
+                rotarPieza();
+            } else if (tecla == ' ') {
+                while (!hayColision(posX, posY + 1, piezaActual)) {
+                    posY++;
+                }
+            } else if (tecla == 'q' || tecla == 'Q') {
+                break;
+            }
+            dibujar();
+        }
+
+        // Caída automática por tiempo
+        DWORD ahora = GetTickCount();
+        if (ahora - ultimoPaso >= (DWORD)velocidad) {
+            if (!hayColision(posX, posY + 1, piezaActual)) {
+                posY++;
+            } else {
+                fijarPieza();
+                limpiarLineas();
+                nuevaPieza();
+
+                if (hayColision(posX, posY, piezaActual)) {
+                    gameOver = true;
+                }
+            }
+            ultimoPaso = ahora;
+            dibujar();
+        }
+
+        Sleep(15); // Reduce la carga del CPU
+    }
+
+    moverCursor(0, ALTO + 7);
+    setColor(12);
+    printf("\n *** GAME OVER ***\n Puntuacion final: %d\n\n", puntuacion);
+    setColor(7);
+    system("pause");
+
+    return 0;
+}
