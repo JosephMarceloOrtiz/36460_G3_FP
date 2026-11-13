@@ -1,0 +1,97 @@
+/*
+ * ==============================================================================
+ * Nombre: Jordan Suntasig
+ * NRC: 36460
+ * Programa en C que muestra un menú interactivo para generar
+ * un cuadrado hueco con asteriscos o calcular los términos
+ * de la serie de Fibonacci, con validación de entradas.
+ */
+
+#include <stdio.h>
+
+int main() {
+    int opcion = 0; // Variable para almacenar la opción elegida en el menú
+
+    // Ciclo principal para mantener el menú abierto hasta que el usuario decida salir
+    do {
+        printf("\n=====================\n");
+        printf("    MENU PRINCIPAL   \n");
+        printf("=====================\n");
+        printf("1.- Cuadrado vacio\n");
+        printf("2.- Serie (Fibonacci)\n");
+        printf("3.- Salida\n");
+        printf("Elige una opcion: ");
+        scanf("%d", &opcion); // Lee la opción del usuario
+
+        // Evalúa qué opción eligió el usuario para ejecutar el bloque correspondiente
+        switch (opcion) {
+            case 1: { // Opción para el cuadrado vacío
+                int n = 0, i, j; // Variables locales para el tamaño y las posiciones
+
+                // Valida que el tamaño ingresado sea mayor a 0
+                do {
+                    printf("\n--- CUADRADO VACIO ---\n");
+                    printf("Ingresa el lado del cuadrado (mayor a 0): ");
+                    scanf("%d", &n);
+                } while (n <= 0);
+
+                // Dibuja el cuadrado fila por fila y columna por columna
+                for (i = 1; i <= n; i++) {
+                    for (j = 1; j <= n; j++) {
+                        // Si está en los bordes (superior, inferior, izquierdo o derecho), imprime asterisco
+                        if (i == 1 || i == n || j == 1 || j == n) {
+                            printf("*");
+                        } else {
+                            // Si está en el centro, imprime un espacio en blanco para que sea hueco
+                            printf(" ");
+                        }
+                    }
+                    printf("\n"); // Salto de línea al terminar cada fila
+                }
+                break;
+            }
+
+            case 2: { // Opción para la serie de Fibonacci
+                int n = 0, i;
+                long long t1 = 0, t2 = 1, siguiente = 0; // Se usa long long para soportar números grandes
+
+                // Valida que la cantidad de términos sea mayor a 0
+                do {
+                    printf("\n--- SERIE FIBONACCI ---\n");
+                    printf("Ingresa la cantidad de terminos (mayor a 0): ");
+                    scanf("%d", &n);
+                } while (n <= 0);
+
+                printf("Serie: ");
+                // Genera la serie sumando los dos números anteriores
+                for (i = 1; i <= n; ++i) {
+                    if (i == 1) {
+                        printf("%lld ", t1);
+                        continue;
+                    }
+                    if (i == 2) {
+                        printf("%lld ", t2);
+                        continue;
+                    }
+                    siguiente = t1 + t2; // Suma los dos anteriores
+                    t1 = t2;             // Actualiza el primer valor
+                    t2 = siguiente;      // Actualiza el segundo valor
+                    printf("%lld ", siguiente);
+                }
+                printf("\n");
+                break;
+            }
+
+            case 3: // Opción para salir del programa
+                printf("\nFinalizacion del programa\n");
+                break;
+
+            default: // Mensaje en caso de que el número no esté entre 1 y 3
+                printf("\n[Error] Opcion no valida. Por favor, elige entre 1 y 3.\n");
+                break;
+        }
+
+    } while (opcion != 3); // El programa se repite mientras la opción sea diferente de 3
+
+    return 0;
+}
