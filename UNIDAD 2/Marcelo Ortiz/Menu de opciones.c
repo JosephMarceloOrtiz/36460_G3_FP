@@ -1,3 +1,4 @@
+//Realizado por Marcelo Ortiz
 
 #include <stdio.h>
 
@@ -7,7 +8,7 @@ int main() {
     int i, j;
     int cantidad;
     int primero = 0, segundo = 1, siguiente;
-
+//do-while	Mantiene el menú funcionando hasta seleccionar salir.
     do {
         // Menu principal
         printf("\n===== MENU PRINCIPAL =====\n");
@@ -17,20 +18,22 @@ int main() {
         printf("==========================\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
-
+//switch-case	Permite seleccionar una de las tres opciones.
         switch (opcion) {
 
             case 1:
                 // Dibujar cuadrado hueco
                 printf("\nIngrese el tamano del lado: ");
                 scanf("%d", &lado);
-
+//if-else	Comprueba las condiciones del cuadrado y la cantidad de términos.
                 if (lado >= 2) {
                     printf("\n");
-
-                    for (i = 1; i <= lado; i++) {
+//for	Repite las instrucciones para dibujar el cuadrado y generar Fibonacci.
+//El primero controla las filas.
+                    for (i = 1; i <= lado; i++)
+//El segundo controla las columnas.
                         for (j = 1; j <= lado; j++) {
-
+//El if comprueba si estamos en el borde del cuadrado.
                             if (i == 1 || i == lado ||
                                 j == 1 || j == lado) {
                                 printf("* ");
@@ -40,7 +43,7 @@ int main() {
                         }
                         printf("\n");
                     }
-                } else {
+                }else {
                     printf("\nEl lado debe ser mayor o igual a 2.\n");
                 }
 
