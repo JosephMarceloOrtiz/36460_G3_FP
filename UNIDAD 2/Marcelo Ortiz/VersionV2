@@ -1,0 +1,102 @@
+#include <stdio.h>
+
+#define MAX 10
+
+void gestionar_vector() {
+    int n;
+    int v[MAX];
+
+    printf("\n--- VECTOR DE TAMANO N ---\n");
+    printf("Ingrese el tamano del vector (1 a %d): ", MAX);
+    scanf("%d", &n);
+
+    if (n <= 0 || n > MAX) {
+        printf("Error: Tamano no valido.\n");
+        return;
+    }
+
+    printf("Ingrese %d elementos (solo positivos y cero):\n", n);
+    for (int i = 0; i < n; i++) {
+        do {
+            printf("v[%d] = ", i);
+            scanf("%d", &v[i]);
+            if (v[i] < 0) {
+                printf("Error: No se permiten numeros negativos. Intente de nuevo.\n");
+            }
+        } while (v[i] < 0);
+    }
+
+    printf("\nVector ingresado:\n[ ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", v[i]);
+    }
+    printf("]\n");
+}
+
+void gestionar_matriz() {
+    int filas, cols;
+    float m[MAX][MAX];
+
+    printf("\n--- MATRIZ N x M ---\n");
+    printf("Ingrese el numero de filas (1 a %d): ", MAX);
+    scanf("%d", &filas);
+    printf("Ingrese el numero de columnas (1 a %d): ", MAX);
+    scanf("%d", &cols);
+
+    if (filas <= 0 || filas > MAX || cols <= 0 || cols > MAX) {
+        printf("Error: Dimensiones no validas.\n");
+        return;
+    }
+
+    printf("Ingrese los elementos de la matriz (solo positivos y cero):\n");
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < cols; j++) {
+            do {
+                printf("m[%d][%d] = ", i, j);
+                scanf("%f", &m[i][j]);
+                if (m[i][j] < 0) {
+                    printf("Error: No se permiten numeros negativos. Intente de nuevo.\n");
+                }
+            } while (m[i][j] < 0);
+        }
+    }
+
+    printf("\nMatriz ingresada:\n");
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%.2f\t", m[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int opcion;
+
+    do {
+        printf("\n====================\n");
+        printf("       MENU         \n");
+        printf("====================\n");
+        printf("1. Vector de tamano N\n");
+        printf("2. Matriz N x M\n");
+        printf("3. Salida\n");
+        printf("Seleccione una opcion: ");
+        scanf("%d", &opcion);
+
+        switch(opcion) {
+            case 1:
+                gestionar_vector();
+                break;
+            case 2:
+                gestionar_matriz();
+                break;
+            case 3:
+                printf("Saliendo del programa...\n");
+                break;
+            default:
+                printf("Opcion invalida. Intente de nuevo.\n");
+        }
+    } while(opcion != 3);
+
+    return 0;
+}
