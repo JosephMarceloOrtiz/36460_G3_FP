@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int n, m;
+
+    // 1. Pedir las dimensiones
+    printf("Ingresa el numero de filas (n): ");
+    scanf("%d", &n);
+    printf("Ingresa el numero de columnas (m): ");
+    scanf("%d", &m);
+
+    // 2. Declarar la matriz con el tamaño ingresado (usando float para decimales o int para enteros)
+    float matriz[n][m];
+
+    // 3. Llenar la matriz con dos bucles anidados
+    printf("\n--- Ingresa los valores ---\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            printf("Posicion [%d][%d]: ", i, j);
+            scanf("%f", &matriz[i][j]);
+        }
+    }
+
+    // 4. Imprimir la matriz resultante
+    printf("\nLa matriz ingresada es:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            // %.2f muestra solo 2 decimales y \t añade una tabulación para alinear columnas
+            printf("%.2f\t", matriz[i][j]); 
+        }
+        printf("\n"); // Salto de línea al terminar cada fila
+    }
+
+    return 0;
+}
