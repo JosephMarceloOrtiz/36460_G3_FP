@@ -2,28 +2,42 @@
 
 #define MAX 100
 
-
+void creditos(){
+    printf("\n==========================");
+    printf("\nUNIVERSIDAD DE LAS FUERZAS");
+    printf("\n=======ARMADAS ESPE=======");
+    printf("\nGRUPO 3");
+    printf("\nINTEGRANTES:");
+    printf("\nJordan Suntasig");
+    printf("\n------");
+    printf("\n------");
+    printf("\nDOCENTE:");
+    printf("\nING. Jenny A. Ruiz R.");
+}
+//funcion para el vector
 void gestionar_vector() {
     int n;
     int v[MAX];
 
     printf("\n--- VECTOR DE TAMANO N ---\n");
+    //aqui solo se verifica que los datos cumplan con los parametros ya mencionados
+    do{
     printf("Ingrese el tamano del vector (1 a %d): ", MAX);
     scanf("%d", &n);
-
     if (n <= 0 || n > MAX) {
         printf("Error: Tamano no valido.\n");
-        return;
     }
-
+    }while(n <= 0 || n > MAX);
+// entrada de datos y verificacion de que cumplan los parametros
     printf("Ingrese %d elementos (solo mayores a 0):\n", n);
     for (int i = 0; i < n; i++) {
         do{
-        printf("\n v[%d] = \n", i);
+        printf("\n v[%d] = ", i);
         scanf("%d", &v[i]);
         if(v[i]<=0){
-            printf("\n error: no es mayor 0");
+            printf("\nerror: no es mayor 0");
           }
+          //esto se usa para que no se salga del programa
         }while(v[i]<=0);
     }
 
@@ -35,21 +49,27 @@ void gestionar_vector() {
     printf("]\n");
 }
 
-
+//funcion para la matriz
 void gestionar_matriz() {
     int filas, cols;
     float m[MAX][MAX];
 
     printf("\n--- MATRIZ N x M ---\n");
+    do{
     printf("Ingrese el numero de filas (1 a %d): ", MAX);
     scanf("%d", &filas);
+    if(filas <= 0 || filas > MAX){
+        printf("\nsolo numeros mayores que 0 \n");
+    }
+    }while(filas <= 0 || filas > MAX);
+
+    do{
     printf("Ingrese el numero de columnas (1 a %d): ", MAX);
     scanf("%d", &cols);
-
-    if (filas <= 0 || filas > MAX || cols <= 0 || cols > MAX) {
-        printf("Error: Dimensiones no validas.\n");
-        return;
+    if(cols <= 0 || cols > MAX){
+        printf("\ntiene que ser mayor que 0 \n");
     }
+    }while(cols <= 0 || cols > MAX);
 
 
     printf("Ingrese los elementos de la matriz (pueden ser decimales mayores a 0):\n");
@@ -83,7 +103,8 @@ int main() {
         printf("====================\n");
         printf("1. Vector de tamano N\n");
         printf("2. Matriz N x M\n");
-        printf("3. Salida\n");
+        printf("3. Creditos\n");
+        printf("4. Salida\n");
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
 
@@ -95,12 +116,15 @@ int main() {
                 gestionar_matriz();
                 break;
             case 3:
+                creditos();
+                break;
+            case 4:
                 printf("Saliendo del programa...\n");
                 break;
             default:
                 printf("Opcion invalida. Intente de nuevo.\n");
         }
-    } while(opcion != 3);
+    } while(opcion != 4);
 
     return 0;
 }
