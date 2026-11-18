@@ -1,7 +1,8 @@
 #include <stdio.h>
 
-#define MAX 100
+#define MAX 100 // Definición de la constante MAX con un valor de 100 para limitar el tamaño máximo de vectores y matrices.
 
+// Función para mostrar los créditos institucionales, del grupo y del docente.
 void creditos(){
     printf("\n==========================");
     printf("\nUNIVERSIDAD DE LAS FUERZAS");
@@ -14,34 +15,37 @@ void creditos(){
     printf("\nDOCENTE:");
     printf("\nING. Jenny A. Ruiz R.");
 }
-//funcion para el vector
+
+// Función para gestionar la entrada, validación e impresión de un vector de tamaño N.
 void gestionar_vector() {
     int n;
     int v[MAX];
 
     printf("\n--- VECTOR DE TAMANO N ---\n");
-    //aqui solo se verifica que los datos cumplan con los parametros ya mencionados
+
+    // Bucle do-while para validar que el tamaño ingresado esté dentro del rango permitido (1 a MAX).
     do{
-    printf("Ingrese el tamano del vector (1 a %d): ", MAX);
-    scanf("%d", &n);
-    if (n <= 0 || n > MAX) {
-        printf("Error: Tamano no valido.\n");
-    }
+        printf("Ingrese el tamano del vector (1 a %d): ", MAX);
+        scanf("%d", &n);
+        if (n <= 0 || n > MAX) {
+            printf("Error: Tamano no valido.\n");
+        }
     }while(n <= 0 || n > MAX);
-// entrada de datos y verificacion de que cumplan los parametros
+
+    // Bucle para la entrada de datos y verificación de que cada elemento sea mayor a 0.
     printf("Ingrese %d elementos (solo mayores a 0):\n", n);
     for (int i = 0; i < n; i++) {
         do{
-        printf("\n v[%d] = ", i);
-        scanf("%d", &v[i]);
-        if(v[i]<=0){
-            printf("\nerror: no es mayor 0");
-          }
-          //esto se usa para que no se salga del programa
+            printf("\n v[%d] = ", i);
+            scanf("%d", &v[i]);
+            if(v[i]<=0){
+                printf("\nerror: no es mayor 0");
+            }
+            // El ciclo se repite si el número no es válido, evitando que avance hasta tener un dato correcto.
         }while(v[i]<=0);
     }
 
-
+    // Muestra en pantalla el vector completo una vez ingresados todos sus elementos.
     printf("\nVector ingresado:\n[ ");
     for (int i = 0; i < n; i++) {
         printf("%d ", v[i]);
@@ -49,42 +53,46 @@ void gestionar_vector() {
     printf("]\n");
 }
 
-//funcion para la matriz
+// Función para gestionar la entrada, validación e impresión de una matriz de tamaño N x M.
 void gestionar_matriz() {
     int filas, cols;
     float m[MAX][MAX];
 
     printf("\n--- MATRIZ N x M ---\n");
+
+    // Validación para asegurar que el número de filas esté entre 1 y MAX.
     do{
-    printf("Ingrese el numero de filas (1 a %d): ", MAX);
-    scanf("%d", &filas);
-    if(filas <= 0 || filas > MAX){
-        printf("\nsolo numeros mayores que 0 \n");
-    }
+        printf("Ingrese el numero de filas (1 a %d): ", MAX);
+        scanf("%d", &filas);
+        if(filas <= 0 || filas > MAX){
+            printf("\nsolo numeros mayores que 0 \n");
+        }
     }while(filas <= 0 || filas > MAX);
 
+    // Validación para asegurar que el número de columnas esté entre 1 y MAX.
     do{
-    printf("Ingrese el numero de columnas (1 a %d): ", MAX);
-    scanf("%d", &cols);
-    if(cols <= 0 || cols > MAX){
-        printf("\ntiene que ser mayor que 0 \n");
-    }
+        printf("Ingrese el numero de columnas (1 a %d): ", MAX);
+        scanf("%d", &cols);
+        if(cols <= 0 || cols > MAX){
+            printf("\ntiene que ser mayor que 0 \n");
+        }
     }while(cols <= 0 || cols > MAX);
 
-
+    // Bucle anidado para ingresar los elementos de la matriz y validar que sean mayores a 0 (admitiendo decimales).
     printf("Ingrese los elementos de la matriz (pueden ser decimales mayores a 0):\n");
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < cols; j++) {
             do{
-            printf("\n m[%d][%d] = ", i, j);
-            scanf("%f", &m[i][j]);
-            if (m[i][j]<=0){
-                printf("\n error: solo mayores a 0");
-            }
+                printf("\n m[%d][%d] = ", i, j);
+                scanf("%f", &m[i][j]);
+                if (m[i][j]<=0){
+                    printf("\n error: solo mayores a 0");
+                }
             }while (m[i][j]<=0);
         }
     }
 
+    // Imprime la matriz en forma de tabla con formato de dos decimales por elemento.
     printf("\nMatriz ingresada:\n");
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < cols; j++) {
@@ -94,9 +102,11 @@ void gestionar_matriz() {
     }
 }
 
+// Función principal que controla el flujo del programa mediante un menú interactivo.
 int main() {
     int opcion;
 
+    // Bucle do-while para mantener el menú abierto hasta que el usuario decida salir (opción 4).
     do {
         printf("\n====================\n");
         printf("       MENU         \n");
@@ -108,21 +118,22 @@ int main() {
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
 
+        // Estructura de control switch para direccionar la opción elegida por el usuario.
         switch(opcion) {
             case 1:
-                gestionar_vector();
+                gestionar_vector(); // Llama a la función del vector.
                 break;
             case 2:
-                gestionar_matriz();
+                gestionar_matriz(); // Llama a la función de la matriz.
                 break;
             case 3:
-                creditos();
+                creditos(); // Muestra los créditos.
                 break;
             case 4:
-                printf("Saliendo del programa...\n");
+                printf("Saliendo del programa...\n"); // Finaliza la ejecución.
                 break;
             default:
-                printf("Opcion invalida. Intente de nuevo.\n");
+                printf("Opcion invalida. Intente de nuevo.\n"); // Manejo de errores para opciones fuera de rango.
         }
     } while(opcion != 4);
 
