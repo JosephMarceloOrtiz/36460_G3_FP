@@ -75,6 +75,90 @@ void ValidarFecha() {
     printf(">> %d de %s de %d <<\n", dia, nombreMes, anio);
 }
 
+void SerieLetras() {
+    int terminos;
+
+    do {
+        printf("\nIngrese la cantidad de terminos (mayor que 0): ");
+        scanf("%d", &terminos);
+        if (terminos <= 0) {
+            printf("La cantidad de terminos debe ser mayor que cero. Intente nuevamente.\n");
+        }
+    } while (terminos <= 0);
+
+    printf("\n");
+
+    for (int i = 0; i < terminos; i++) {
+        char superior = 'a' + (2 * i);
+        if (superior <= 'z') {
+            printf("%c ", superior);
+        } else {
+            printf("  ");
+        }
+    }
+    printf("\n");
+
+    for (int i = 0; i < terminos; i++) {
+        printf("- ");
+    }
+    printf("\n");
+
+    for (int i = 0; i < terminos; i++) {
+        char inferior = 'b' + (2 * i);
+        if (inferior <= 'z') {
+            printf("%c ", inferior);
+        } else {
+            printf("  ");
+        }
+    }
+    printf("\n");
+}
+
+void SerieNumeros() {
+    int terminos;
+
+    // Reinicio en cada llamada a la funcion
+    int sub1 = 1;
+    int sub2 = 5;
+
+    do {
+        printf("\nIngrese la cantidad de terminos (0 o mayor): ");
+        scanf("%d", &terminos);
+        if (terminos < 0) {
+            printf("La cantidad de terminos no puede ser negativa. Intente nuevamente.\n");
+        }
+    } while (terminos < 0);
+
+    printf("\n");
+
+    if (terminos == 0) {
+        printf("Serie vacia (0 terminos).\n");
+        return;
+    }
+
+    int parejas = terminos / 2;
+    int esImpar = (terminos % 2 != 0);
+
+    for (int i = 0; i < parejas; i++) {
+        printf("%d", sub1);
+        if (i < parejas - 1 || esImpar) {
+            printf(", ");
+        }
+        printf("%d", sub2);
+        if (i < parejas - 1) {
+            printf(", ");
+        }
+        sub1 += 2;
+        sub2 += 2;
+    }
+
+    if (esImpar) {
+        printf("%d", sub1);
+    }
+
+    printf("\n");
+}
+
 int main(){
 int option;
 do{
@@ -86,7 +170,7 @@ do{
     printf("\nINGRESE UNA OPCION:");
     printf("\n1. Validar fecha");
     printf("\n2. Desplegar serie letras");
-    printf("\n3. Desplegar serie número");
+    printf("\n3. Desplegar serie numero");
     printf("\n4. Salir");
     printf("\nIngrese una funcion:");
     scanf("%d",&option);
@@ -99,19 +183,19 @@ do{
 
              break;
         case 2:
-            printf("letra");
+            SerieLetras();
             printf("\n \n");
             system("pause");
             //SerieLetras();
             break;
         case 3:
-            printf("numero");
+            SerieNumeros();
             printf("\n \n");
             system("pause");
             //SerieNumeros();
             break;
         case 4:
-            printf("\nsaliendo del programa...\n");
+            printf("\nSalir... \n");
             printf("\n \n");
             system("pause");
             break;
@@ -123,5 +207,4 @@ do{
    }while(option !=4);
    return 0;
 }
-
 
