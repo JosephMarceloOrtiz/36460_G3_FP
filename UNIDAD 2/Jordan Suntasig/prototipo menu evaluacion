@@ -113,11 +113,8 @@ void SerieLetras() {
     }
     printf("\n");
 }
-
 void SerieNumeros() {
     int terminos;
-
-    // Reinicio en cada llamada a la funcion
     int sub1 = 1;
     int sub2 = 5;
 
@@ -136,24 +133,18 @@ void SerieNumeros() {
         return;
     }
 
-    int parejas = terminos / 2;
-    int esImpar = (terminos % 2 != 0);
+    // Redondea hacia arriba a cantidad par para que siempre cierre con 2 numeros
+    int parejas = (terminos + 1) / 2;
 
     for (int i = 0; i < parejas; i++) {
-        printf("%d", sub1);
-        if (i < parejas - 1 || esImpar) {
-            printf(", ");
-        }
-        printf("%d", sub2);
+        printf("%d, %d", sub1, sub2);
+
         if (i < parejas - 1) {
             printf(", ");
         }
+
         sub1 += 2;
         sub2 += 2;
-    }
-
-    if (esImpar) {
-        printf("%d", sub1);
     }
 
     printf("\n");
@@ -207,4 +198,3 @@ do{
    }while(option !=4);
    return 0;
 }
-
